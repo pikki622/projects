@@ -10,10 +10,11 @@ from ploomber.spec import DAGSpec
 def run_number():
     """Returns an increasing integer
     """
-    if not Path('products').exists():
-        return 0
-
-    return max([int(Path(path).name) for path in glob('products/*')]) + 1
+    return (
+        max(int(Path(path).name) for path in glob('products/*')) + 1
+        if Path('products').exists()
+        else 0
+    )
 
 
 def now():

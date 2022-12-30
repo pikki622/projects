@@ -65,9 +65,7 @@ def _render(resources_, product):
     lines = ['"idx","category","name","description"']
 
     for section in [templates, cookbook, guides]:
-        for example in section:
-            lines.append(example.to_csv())
-
+        lines.extend(example.to_csv() for example in section)
     Path(product['index']).write_text('\n'.join(lines))
 
 

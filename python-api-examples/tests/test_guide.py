@@ -21,7 +21,7 @@ nbs = [Path(_base, f) for f in os.listdir(_base) if f.endswith('.ipynb')]
 # there is an issue when this happens, so we just run it as scripts using
 # ipython directly
 def run_notebook(nb):
-    print('Running %s' % nb)
+    print(f'Running {nb}')
 
     out = 'nb.py'
     jupytext.write(jupytext.read(nb), out)
@@ -32,15 +32,13 @@ def run_notebook(nb):
     for line in Path(out).read_text().splitlines():
         # https://stackoverflow.com/a/29262880/709975
         if line.startswith('# !'):
-            line = 'get_ipython().magic("sx %s")' % line[2:]
+            line = f'get_ipython().magic("sx {line[2:]}")'
 
         lines.append(line)
 
     Path(out).write_text('\n'.join(lines))
 
-    exit_code = subprocess.call(['ipython', 'nb.py'])
-
-    return exit_code
+    return subprocess.call(['ipython', 'nb.py'])
 
 
 @pytest.mark.parametrize('nb', nbs, ids=[Path(nb).name for nb in nbs])

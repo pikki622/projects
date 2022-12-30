@@ -24,8 +24,6 @@ import pickle
 # %% tags=["parameters"]
 upstream = ['split']
 product = None
-fit_intercept = None
-
 # %% tags=["injected-parameters"]
 # This cell was injected automatically based on your stated upstream dependencies (cell above) and pipeline.yaml preferences. It is temporary and will be removed when you save this notebook
 upstream = {
@@ -50,16 +48,7 @@ y = pickle.loads(Path(upstream['split']['y']).read_bytes())
 y_test = pickle.loads(Path(upstream['split']['y_test']).read_bytes())
 y_train = pickle.loads(Path(upstream['split']['y_train']).read_bytes())
 
-# %% [markdown] tags=[]
-# # Sample report
-# ## Linear regression
-# In here we can see a plot of number of cases and the predictions.
-#
-# **This report was a result of the executed pipeline.**
-
-
-# %% tags=["plot"]
-if fit_intercept:
+if fit_intercept := None:
     reg = LinearRegression(fit_intercept=fit_intercept)
 else:
     reg = LinearRegression()

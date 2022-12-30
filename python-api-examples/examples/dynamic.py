@@ -30,6 +30,7 @@ Why would you do that? Here are some use cases:
     (say daily) observations and process them instead of pulling the complete
     historical data every time
 """
+
 from datetime import date
 from pathlib import Path
 import tempfile
@@ -62,7 +63,7 @@ conn.close()
 
 dag = DAG(executor=Serial(build_in_subprocess=False))
 
-dag.clients[SQLDump] = SQLAlchemyClient('sqlite:///' + str(path_to_db))
+dag.clients[SQLDump] = SQLAlchemyClient(f'sqlite:///{str(path_to_db)}')
 
 
 def make_task(date_start, date_end, path, dag):
@@ -72,7 +73,7 @@ def make_task(date_start, date_end, path, dag):
     SELECT * FROM data
     WHERE DATE('{{date_start}}') <= date AND date < DATE('{{date_end}}')
     """
-    name = '{}-to-{}.csv'.format(date_start, date_end)
+    name = f'{date_start}-to-{date_end}.csv'
     return SQLDump(sql,
                    product=File(Path(path / name)),
                    dag=dag,

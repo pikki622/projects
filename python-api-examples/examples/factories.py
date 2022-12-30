@@ -42,9 +42,7 @@ def _dump(product, kind):
     df = pd.DataFrame(d['data'])
     df.columns = d['feature_names']
     df['target'] = d['target']
-    df['target'] = (df.target.replace(
-        {i: name
-         for i, name in enumerate(d.target_names)}))
+    df['target'] = df.target.replace(dict(enumerate(d.target_names)))
     df = df[df['target'] == kind]
 
     df.to_parquet(str(product))

@@ -40,7 +40,7 @@ y = pickle.loads(Path(upstream['section-2-preprocess-data']['y']).read_bytes())
 
 # %%
 # Define p, d, q params to take any value between 0 and 2
-p = d = q = range(0, 2)
+p = d = q = range(2)
 
 # Generate all different combinations of p, d, q
 pdq = list(itertools.product(p, d, q))
@@ -50,10 +50,10 @@ seasonal_pdq = [(x[0], x[1], x[2], 12) for x in list(itertools.product(p, d, q))
 
 # %%
 print('Examples of parameter combos for SARIMA:')
-print('SARIMA: {} x {}'.format(pdq[1], seasonal_pdq[1]))
-print('SARIMA: {} x {}'.format(pdq[1], seasonal_pdq[2]))
-print('SARIMA: {} x {}'.format(pdq[2], seasonal_pdq[3]))
-print('SARIMA: {} x {}'.format(pdq[2], seasonal_pdq[4]))
+print(f'SARIMA: {pdq[1]} x {seasonal_pdq[1]}')
+print(f'SARIMA: {pdq[1]} x {seasonal_pdq[2]}')
+print(f'SARIMA: {pdq[2]} x {seasonal_pdq[3]}')
+print(f'SARIMA: {pdq[2]} x {seasonal_pdq[4]}')
 
 # %% [markdown]
 # The following grid search optimizes the params for best (lowest) [AIC](https://en.wikipedia.org/wiki/Akaike_information_criterion):
@@ -86,12 +86,14 @@ for param in pdq:
                 min_params = param
                 min_params_seasonal = param_seasonal
                 min_model = results
-            print('ARIMA{}x{}: aic={}'.format(param, param_seasonal, results.aic))
+            print(f'ARIMA{param}x{param_seasonal}: aic={results.aic}')
         except:
             continue
 
 # %%
-print('min_aic={}, min_params={}, min_params_seasonal={}'.format(min_aic, min_params, min_params_seasonal))
+print(
+    f'min_aic={min_aic}, min_params={min_params}, min_params_seasonal={min_params_seasonal}'
+)
 
 # %% tags=["soorgeon-pickle"]
 Path(product['min_model']).parent.mkdir(exist_ok=True, parents=True)

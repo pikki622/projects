@@ -60,4 +60,4 @@ y_truth = y['1998-01-01':]
 
 # Compute the mean square error
 mse = ((y_forecasted - y_truth) ** 2).mean()
-print('The Mean Squared Error of our forecasts is {}'.format(round(mse, 2)))
+print(f'The Mean Squared Error of our forecasts is {round(mse, 2)}')

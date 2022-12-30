@@ -43,7 +43,7 @@ def write_another(env, dag):
 
 def _write_another(upstream, product):
     txt = Path(str(upstream['write_file'])).read_text()
-    Path(str(product)).write_text(txt + '. And even more text.')
+    Path(str(product)).write_text(f'{txt}. And even more text.')
 
 
 dag = dag_factory()
