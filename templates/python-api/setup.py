@@ -13,8 +13,9 @@ from setuptools import setup
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
 with open('src/ploomber_basic/__init__.py', 'rb') as f:
-    VERSION = str(ast.literal_eval(_version_re.search(
-        f.read().decode('utf-8')).group(1)))
+    VERSION = str(
+        ast.literal_eval(_version_re.search(f.read().decode('utf-8'))[1])
+    )
 
 
 def read(*names, **kwargs):

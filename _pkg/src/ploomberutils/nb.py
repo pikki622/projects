@@ -63,9 +63,7 @@ def process_cell(cell):
 def make_task(dag, readme):
     content = Path(readme).read_text()
 
-    if readme.name == '_source.md':
-        pass
-    else:
+    if readme.name != '_source.md':
         nb = jupytext.reads(add_md_header(readme, content), fmt='md')
         path_to_expanded = None
 
@@ -216,11 +214,9 @@ def _make_path(parent_dir, folder):
 
 
 def check_file(folders, file):
-    missing_env_yml = [
+    if missing_env_yml := [
         folder for folder in folders if not Path(folder, file).exists()
-    ]
-
-    if missing_env_yml:
+    ]:
         raise ValueError(f'Missing {file}: {missing_env_yml}')
 
 
@@ -247,10 +243,7 @@ def extract_pip_deps(folder):
     # this should a dictionary with a single key
     pip_deps = deps['dependencies'][-1]
 
-    if not isinstance(pip_deps, Mapping):
-        return []
-    else:
-        return sorted(pip_deps['pip'])
+    return sorted(pip_deps['pip']) if isinstance(pip_deps, Mapping) else []
 
 
 def write_root_dep_files_and_examples_reqs_txt(folders):

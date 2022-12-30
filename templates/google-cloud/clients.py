@@ -10,7 +10,7 @@ from ploomber.clients import (DBAPIClient, GCloudStorageClient,
 def db():
     """Client to send queries to BigQuery
     """
-    return DBAPIClient(connect, dict())
+    return DBAPIClient(connect, {})
 
 
 def db_sqlalchemy():

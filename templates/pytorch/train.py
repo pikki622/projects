@@ -59,15 +59,12 @@ net.to(device)
 
 def to_device(inputs, labels=None):
     if GPU_AVAILABLE:
-        if labels is not None:
-            return inputs.to(device), labels.to(device)
-        else:
-            return inputs.to(device)
-    else:
-        if labels is not None:
-            return inputs, labels
-        else:
-            return inputs
+        return (
+            (inputs.to(device), labels.to(device))
+            if labels is not None
+            else inputs.to(device)
+        )
+    return (inputs, labels) if labels is not None else inputs
 
 
 # %%

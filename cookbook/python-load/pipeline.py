@@ -4,7 +4,6 @@ from ploomber import with_env
 
 
 @with_env('env.yaml')
-# NOTE: you may add extra arguments to the function, they'll show up in the cli
 def make(env):
     """Simplest factory function
 
@@ -13,9 +12,7 @@ def make(env):
     Execute in the terminal:
         ploomber build -e pipeline.make
     """
-    dag = DAGSpec('pipeline.yaml', env=dict(env)).to_dag()
-    # NOTE: a factory function must return a DAG (do not call any methods)
-    return dag
+    return DAGSpec('pipeline.yaml', env=dict(env)).to_dag()
 
 
 @with_env('env.yaml')

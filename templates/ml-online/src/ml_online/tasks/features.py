@@ -6,8 +6,7 @@ def sepal_area(upstream):
     """
     data = upstream['get']
     ft = data['sepal length (cm)'] * data['sepal width (cm)']
-    df = pd.DataFrame({'sepal area (cm2)': ft})
-    return df
+    return pd.DataFrame({'sepal area (cm2)': ft})
 
 
 def petal_area(upstream):
@@ -15,8 +14,7 @@ def petal_area(upstream):
     """
     data = upstream['get']
     ft = data['petal length (cm)'] * data['petal width (cm)']
-    df = pd.DataFrame({'petal area (cm2)': ft})
-    return df
+    return pd.DataFrame({'petal area (cm2)': ft})
 
 
 def features(upstream):
